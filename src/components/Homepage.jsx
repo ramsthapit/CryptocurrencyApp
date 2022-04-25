@@ -1,27 +1,37 @@
 import { Col, Row, Statistic, Typography } from 'antd'
-import React from 'react'
+import millify from 'millify'
+import React, { useState } from 'react'
+
+import { useGetCryptosQuery } from '../services/cryptoApi'
 
 const { Title } = Typography
 
 const Homepage = () => {
+  const { data, isFetching } = useGetCryptosQuery()
+
+  const globalStats = data?.data?.stats
+
+  // console.log(globalStats);
+
+  if(isFetching) return 'Loading ...'
   return (
     <>
       <Title level={2} className="heading" >Global Crypto Stats</Title>
       <Row>
         <Col span={12}>
-          <Statistic title="Total Cryptocurrencies" value="5" />
+          <Statistic title="Total Cryptocurrencies" value={globalStats.total} />
         </Col>
         <Col span={12}>
-          <Statistic title="Total Exchanges" value="5" />
+          <Statistic title="Total Exchanges" value={millify(globalStats.totalExchanges)} />
         </Col>
         <Col span={12}>
-          <Statistic title="Total Market cap" value="5" />
+          <Statistic title="Total Market cap" value={millify(globalStats.totalMarketCap)} />
         </Col>
         <Col span={12}>
-          <Statistic title="Total 24 Volume" value="5" />
+          <Statistic title="Total 24 Volume" value={millify(globalStats.total24hVolume)} />
         </Col>
         <Col span={12}>
-          <Statistic title="Total Markets" value="5" />
+          <Statistic title="Total Markets" value={millify(globalStats.totalMarkets)} />
         </Col>
       </Row>
     </>
