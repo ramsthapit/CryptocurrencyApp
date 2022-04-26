@@ -1,6 +1,6 @@
 import { Col, Row, Statistic, Typography } from 'antd'
 import millify from 'millify'
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { useGetCryptosQuery } from '../services/cryptoApi'
